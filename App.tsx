@@ -1,7 +1,18 @@
-import { View, SafeAreaView, Button, ScrollView, Image } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Button,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useEffect, useState } from "react";
+import { CameraView, useCameraPermissions } from "expo-camera/next";
+import CodeScanner from "./scanner";
 
 const imgDir = FileSystem.documentDirectory + "images/";
 
@@ -13,8 +24,9 @@ const ensureDirExists = async () => {
 };
 
 export default function App() {
+  const [facing, setFacing] = useState("back");
+  const [permission, requestPermission] = useCameraPermissions();
   const [images, setImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadImages();
@@ -54,6 +66,10 @@ export default function App() {
     await FileSystem.copyAsync({ from: uri, to: dest });
     setImages([...images, dest]);
   };
+
+  function toggleCameraFacing() {
+    setFacing((current) => (current === "back" ? "front" : "back"));
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
@@ -76,6 +92,33 @@ export default function App() {
           ></Image>
         ))}
       </ScrollView>
+      <CodeScanner></CodeScanner>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "transparent",
+    margin: 64,
+  },
+  button: {
+    flex: 1,
+    alignSelf: "flex-end",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+  },
+});
