@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "expo": "~50.0.14",
     "expo-barcode-scanner": "^12.9.3",
     "expo-camera": "~14.1.2",
