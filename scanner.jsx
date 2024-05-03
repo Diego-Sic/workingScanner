@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, FlatList } from "react-native";
 import { CameraView, Camera } from "expo-camera/next";
-import PropTypes from "prop-types";
 
-const CodeScanner = ({ onScan }) => {
+const CodeScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -18,7 +17,6 @@ const CodeScanner = ({ onScan }) => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    onScan(data);
     alert(`Bar code with type ${type} and data ${data} has been scanned`);
   };
 
@@ -50,10 +48,6 @@ const CodeScanner = ({ onScan }) => {
       )}
     </View>
   );
-};
-
-CodeScanner.propTypes = {
-  onScan: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

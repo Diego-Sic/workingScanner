@@ -4,12 +4,9 @@ import BookInfo from "./BookInfo";
 import { useState } from "react";
 
 export default function App() {
-  const [isbn, setIsbn] = useState("");
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <CodeScanner onScan={setIsbn} />
-      <BookInfo isbn={isbn} />
+      <CodeScanner />
     </SafeAreaView>
   );
 }
