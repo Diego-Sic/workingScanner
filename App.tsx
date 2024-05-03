@@ -1,4 +1,3 @@
-// App.js
 import { SafeAreaView } from "react-native";
 import CodeScanner from "./scanner";
 import BookInfo from "./BookInfo";
